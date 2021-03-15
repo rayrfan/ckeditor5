@@ -5,7 +5,7 @@
 	<title>CKEditor 5 – classic editor build – development sample</title>
 	<style>
 		body {
-			max-width: 800px;
+			max-width: 866px;
 			margin: 20px auto;
 		}
 	</style>
@@ -17,7 +17,7 @@
 <div id="editor">
 	<h2>Sample</h2>
 
-	<p>This is an instance of the <a href="https://ckeditor.com/docs/ckeditor5/latest/builds/guides/overview.html#classic-editor">classic editor build</a>.</p>
+	<p>This is an instance of the <a href="https://ckeditor.com/docs/ckeditor5/latest/builds/guides/overview.html#classic-editor">classic editor build</a>. (c)</p>
 
 	<figure class="image">
 		<img src="../tests/manual/sample.jpg" alt="Autumn fields" />
@@ -28,6 +28,33 @@
 
 <script src="../build/ckeditor.js"></script>
 <script>
+	let typingTimer;
+	let doneTypingInterval = 2000;
+
+	ClassicEditor.create(document.querySelector('#editor'), {
+		autosave: {
+			save(editor) {
+				clearTimeout(typingTimer);
+				typingTimer = setTimeout(saveDraft, doneTypingInterval);
+			}
+		},
+	})
+		.then(editor => {
+			window.editor = editor;
+		})
+		.catch(error => {
+			console.error('There was a problem initializing the editor.', error);
+		});
+
+	/**
+	 * autosave calls this some seconds after user stops typing.
+	 */
+	function saveDraft() {
+		console.log('Saving draft: ', window.editor.getData());
+	};
+</script>
+
+<!-- <script>
 	ClassicEditor.create( document.querySelector( '#editor' ) )
 		.then( editor => {
 			window.editor = editor;
@@ -35,7 +62,7 @@
 		.catch( error => {
 			console.error( 'There was a problem initializing the editor.', error );
 		} );
-</script>
+</script> -->
 
 </body>
 </html>

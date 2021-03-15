@@ -1,0 +1,41 @@
+/* https://docs.ckeditor.com/ckeditor5/latest/framework/guides/ui/theme-customization.html#customization-with-css-variables
+*/
+:root {
+    --ck-border-radius: 0; /* remove toolbar round corner */
+    --ck-color-toolbar-background: white;
+}
+
+/* remove editor content border except top */
+.ck.ck-editor__editable:not(.ck-editor__nested-editable).ck-focused,
+.ck.ck-editor__editable:not(.ck-editor__nested-editable).ck-blurred {
+    outline:none;
+    border: 0;
+    box-shadow: none;
+    background: white;
+}
+
+/* the height of the topbar is 64px and 56px on smaller screen, adjust toolbar accordingly */
+.ck.ck-sticky-panel .ck-sticky-panel__content_sticky {
+    top: 64px;
+}
+@media (max-width: 767px) {
+    .ck.ck-sticky-panel .ck-sticky-panel__content_sticky {
+        top: 56px;
+    }
+}
+
+/* add the missing toolbar bottom border */
+.ck-rounded-corners .ck.ck-editor__top .ck-sticky-panel .ck-toolbar, 
+.ck.ck-editor__top .ck-sticky-panel .ck-toolbar.ck-rounded-corners 
+ {
+    border-bottom-width: 1px;
+}
+
+/* give toolbar box shadow */
+.ck.ck-editor__top {
+    box-shadow: 0 0 5px hsla( 0,0%,0%,.2 );
+}
+
+/*
+currently ck has a bug expand or collapse toolbar icons when adjusting screen sizes.
+*/
